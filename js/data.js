@@ -1,10 +1,10 @@
 $(document).ready(function() {
 	Parse.initialize("MbW4yrekRDJBgv4Jso9ewuzzfpCid9hFkbHS4cLH", "hFINR7Q8QINAcRy5olXj7NbR4xa6PhEpr1AWv6Zm");
 
-	var saveData = function(name, price, image) {
+	var saveData = function(vName, vPrice, vImage) {
 		var Product = Parse.Object.extend("product");
 		var newProduct = new Product();
-		newProduct.save({"name": name, "price": price, "image": image}).then(function(object) {
+		newProduct.save({name: vName, price: vPrice, image: vImage}).then(function(object) {
 			alert("Product " +  name + " saved!");
 		});
 	};
@@ -16,7 +16,7 @@ $(document).ready(function() {
 					"<form>"+
 					  "<div class='form-group'>" + 
 					    "<label for='name'>Product name</label>" +
-					    "<input type='name' class='form-control' id='name' placeholder='Product email'>" +
+					    "<input type='name' class='form-control' id='name' placeholder='Product name'>" +
 					  "</div>" +
 					  "<div class='form-group'>" + 
 					    "<label for='price'>Price</label>" +
@@ -35,7 +35,11 @@ $(document).ready(function() {
                             var name = $('#name').val();
                           	var image = $('#image').val();
                           	var price = $('#price').val();
-                            alert("Hello " + name + ". You've chosen <b>" + name + "</b>");
+                          	if (name == '' || image == '' || price == '') {
+                          		alert("You must fill the entire form.");
+                          	} else {
+                            	saveData(name, price, image);
+                        	}	
                         }
                     }
                 }
